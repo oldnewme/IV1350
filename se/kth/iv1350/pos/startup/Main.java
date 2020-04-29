@@ -1,9 +1,10 @@
 package se.kth.iv1350.pos.startup;
 
-import se.kth.iv1350.pos.dbhandler.*;
 import se.kth.iv1350.pos.model.*;
 import se.kth.iv1350.pos.view.*;
 import se.kth.iv1350.pos.controller.*;
+import se.kth.iv1350.pos.integration.*;
+
 import java.util.*;
 
 public class Main {
@@ -18,7 +19,7 @@ public class Main {
 		
 		
 		while(true) {
-			
+			System.out.println("Press 9 and enter to terminate sale");
 			System.out.println("Enter item identifier: " );
 			
 			long itemIdentifier = scanner.nextLong();
@@ -30,10 +31,19 @@ public class Main {
 			
 			if(lastRegisteredItem.getItemIdentifier() != 0L) {
 				sale.updateSale(lastRegisteredItem);
+				System.out.println("\n=======================================================");
+                for (Item item : sale.getItems())
+                    System.out.println(item.getName() + " - " + item.getQuantity() + "x - " + item.getPrice() * item.getQuantity() + ":-");
+                System.out.println(sale.getRunningTotal() + " SEK");
+                System.out.println("=======================================================\n");
 			}
-			
-			System.out.println(sale.printItems());
+			else
+	                System.out.println("Invalid item identifier, did you enter wrong identifier?\n");
+
 		}
+		
+		Receipt receipt = contr.getReceipt(contr.terminateSale(sale));
+        System.out.println(receipt.toString());
 		
 	}
 
