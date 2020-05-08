@@ -1,5 +1,6 @@
 package se.kth.iv1350.pos.integration;
 
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.model.*;
 
 public class Printer {
@@ -17,11 +18,11 @@ public class Printer {
 	 * @param sale
 	 * @return receipt
 	 */
-	public Receipt printReceipt(Sale sale) {
+	public Receipt printReceipt(SaleDTO saleDTO) {
 		if(receiptsLeft < 10)
 			System.out.println("Please refill printer paper");
 		
-		return new Receipt(sale);
+		return new Receipt(saleDTO);
 		
 	}
 }

@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.model;
 
 import java.util.Scanner;
 
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.AccountingSystem;
 import se.kth.iv1350.pos.integration.InventorySystem;
 import se.kth.iv1350.pos.integration.Item;
@@ -14,6 +15,7 @@ public class CashRegister {
     private Printer printer;
     private InventorySystem itemRegistry;
     private AccountingSystem accountingSystem;
+    private Sale currentSale;
 	
     
     /**
@@ -31,10 +33,9 @@ public class CashRegister {
 	 * Initiates a new {@link Sale} based when a customer arrives to the {@link CashRegister}
 	 * @return the newly Created {@link Sale}
 	 */
-	public Sale newSale() {
+	public void newSale() {
 		
-		Sale newCreatedSale = new Sale();
-		return newCreatedSale;
+		this.currentSale = new Sale();
 	}
 	
 	/**
@@ -60,7 +61,7 @@ public class CashRegister {
 	 * @param sale the current {@link Sale} that is ongoing
 	 * @return the completed {@link Sale}
 	 */
-    public Sale terminateSale(Sale sale)
+    public SaleDTO terminateSale()
     {
     	
     	Scanner scanner = new Scanner(System.in);
@@ -73,13 +74,15 @@ public class CashRegister {
         System.out.println();
 
         if(paidAmount > leftToPay)
-            sale.setChange(paidAmount - leftToPay);
+            currentSale.setChange(paidAmount - leftToPay);
 
-        sale.calculateVAT();
+        currentSale.calculateVAT();
         
-        accountingSystem.logSale(sale);
+        accountingSystem.logSale(currentSale);
+        
+        
 
-        return sale;
+        return new SaleDTO(currentSale);
     }
     
     /**
@@ -87,12 +90,22 @@ public class CashRegister {
      * @param sale
      * @return the {@link Receipt} thhat has been created summarizing the {@link Sale}
      */
-    public Receipt printReceipt(Sale sale) {
-        return printer.printReceipt(sale);
+    public Receipt printReceipt(SaleDTO saleDTO) {
+        return printer.printReceipt(getSaleDTO());
     }
     
     private void increaseCurrentSaleAmount(double amount) {
 		leftToPay += amount;
+	}
+
+	public void updateSale(Item lastItem) {
+		currentSale.updateSale(lastItem);
+		
+	}
+
+	public SaleDTO getSaleDTO() {
+		// TODO Auto-generated method stub
+		return new SaleDTO(currentSale);
 	}
 
 

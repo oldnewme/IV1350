@@ -1,8 +1,12 @@
 package se.kth.iv1350.pos.view;
+
+import java.util.Scanner;
+
 import se.kth.iv1350.pos.controller.*;
 
 public class View {
 	
+	Scanner scanner = new Scanner(System.in);
 	private Controller contr;
 	
 	/**
@@ -14,5 +18,12 @@ public class View {
 		this.contr = contr;
 	}
 	
+	public void startNewSale() {
+		contr.startNewSale();
+	}
+	
+	public void registerItem(long itemIdentifier) {
+		contr.registerItem(itemIdentifier);
+	}
 	
 }

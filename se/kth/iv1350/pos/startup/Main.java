@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.startup;
 
 import se.kth.iv1350.pos.model.*;
 import se.kth.iv1350.pos.view.*;
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
 import se.kth.iv1350.pos.integration.*;
 
@@ -15,7 +16,8 @@ public class Main {
 		
 		Controller contr = new Controller();
 		View view = new View(contr);
-		Sale sale = contr.startNewSale();
+		view.startNewSale();
+		SaleDTO saleDTO;
 		
 		
 		while(true) {
@@ -30,11 +32,12 @@ public class Main {
 			Item lastRegisteredItem = contr.registerItem(itemIdentifier);
 			
 			if(lastRegisteredItem.getItemIdentifier() != 0L) {
-				sale.updateSale(lastRegisteredItem);
+				contr.updateSale(lastRegisteredItem);
+				saleDTO = contr.getSaleDTO();
 				System.out.println("\n=======================================================");
-                for (Item item : sale.getItems())
+                for (Item item : saleDTO.getItems())
                     System.out.println(item.getName() + " - " + item.getQuantity() + "x - " + item.getPrice() * item.getQuantity() + ":-");
-                System.out.println(sale.getRunningTotal() + " SEK");
+                System.out.println(saleDTO.getRunningTotal() + " SEK");
                 System.out.println("=======================================================\n");
 			}
 			else
@@ -42,7 +45,7 @@ public class Main {
 
 		}
 		
-		Receipt receipt = contr.getReceipt(contr.terminateSale(sale));
+		Receipt receipt = contr.getReceipt(contr.terminateSale());
         System.out.println(receipt.toString());
 		
 	}

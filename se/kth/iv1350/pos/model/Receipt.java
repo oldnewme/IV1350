@@ -1,7 +1,7 @@
 package se.kth.iv1350.pos.model;
 
 import java.util.*;
-
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.*;
 
 
@@ -16,11 +16,11 @@ public class Receipt {
      * Creates an object of {@link Receipt} from a {@link Sale}
      * @param sale The completed {@link Sale}
      */
-	public Receipt(Sale sale) {
-		this.totalPrice = sale.getRunningTotal();
-		this.VAT = sale.getVAT();
-		this.change = sale.getChange();
-		this.purchases = sale.getItems();
+	public Receipt(SaleDTO saleDTO) {
+		this.totalPrice = saleDTO.getRunningTotal();
+		this.VAT = saleDTO.getVAT();
+		this.change = saleDTO.getChange();
+		this.purchases = saleDTO.getItems();
 		
 	}
 	

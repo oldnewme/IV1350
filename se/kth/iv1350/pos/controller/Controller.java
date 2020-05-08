@@ -1,4 +1,5 @@
 package se.kth.iv1350.pos.controller;
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.*;
 import se.kth.iv1350.pos.model.*;
 
@@ -19,9 +20,9 @@ public class Controller {
 	 * Creates a new {@link Sale} object by calling the {@link CashRegister}
 	 * @return
 	 */
-	public Sale startNewSale() {
+	public void startNewSale() {
 		
-		return  cashRegister.newSale();
+		cashRegister.newSale();
 	}
 	
 	/**
@@ -39,9 +40,9 @@ public class Controller {
 	 * @param sale
 	 * @return the {@link Sale} that has been completed
 	 */
-    public Sale terminateSale(Sale sale)
+    public SaleDTO terminateSale()
     {
-        return cashRegister.terminateSale(sale);
+        return cashRegister.terminateSale();
     }
     
     /**
@@ -49,9 +50,17 @@ public class Controller {
      * @param sale
      * @return a new {@link Receipt} that includes information about the completed sale
      */
-	public Receipt getReceipt(Sale sale) {
+	public Receipt getReceipt(SaleDTO saleDTO) {
 		
-		return cashRegister.printReceipt(sale);
+		return cashRegister.printReceipt(cashRegister.getSaleDTO());
+	}
+
+	public void updateSale(Item lastItem) {
+		cashRegister.updateSale(lastItem);
+	}
+
+	public SaleDTO getSaleDTO() {
+		return cashRegister.getSaleDTO();
 	}
 	
 	
