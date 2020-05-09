@@ -31,17 +31,13 @@ public class Main {
 			
 			Item lastRegisteredItem = contr.registerItem(itemIdentifier);
 			
-			if(lastRegisteredItem.getItemIdentifier() != 0L) {
-				contr.updateSale(lastRegisteredItem);
-				saleDTO = contr.getSaleDTO();
-				System.out.println("\n=======================================================");
-                for (Item item : saleDTO.getItems())
-                    System.out.println(item.getName() + " - " + item.getQuantity() + "x - " + item.getPrice() * item.getQuantity() + ":-");
-                System.out.println(saleDTO.getRunningTotal() + " SEK");
-                System.out.println("=======================================================\n");
-			}
-			else
-	                System.out.println("Invalid item identifier, did you enter wrong identifier?\n");
+			contr.updateSale(lastRegisteredItem);
+			saleDTO = contr.getSaleDTO();
+			System.out.println("\n=======================================================");
+            for (Item item : saleDTO.getItems())
+                System.out.println(item.getName() + " - " + item.getQuantity() + "x - " + item.getPrice() * item.getQuantity() + ":-");
+            System.out.println(saleDTO.getRunningTotal() + " SEK");
+            System.out.println("=======================================================\n");
 
 		}
 		
