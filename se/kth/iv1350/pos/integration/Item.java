@@ -1,5 +1,7 @@
 package se.kth.iv1350.pos.integration;
 
+import se.kth.iv1350.pos.DTO.ItemDTO;
+
 public class Item {
 	
 	private long itemIdentifier;
@@ -19,6 +21,20 @@ public class Item {
     	this.price = item.price;
     	this.VAT = item.VAT;
     	this.quantity = item.quantity;
+    	
+    	
+    }
+    
+    /**
+     * Creates an {@link Item} from an existing item
+     * @param itemDTO
+     */
+    public Item(ItemDTO itemDTO) {
+    	this.itemIdentifier = itemDTO.getItemIdentifier();
+    	this.name = itemDTO.getName();
+    	this.price = itemDTO.getPrice();
+    	this.VAT = itemDTO.getVAT();
+    	this.quantity = itemDTO.getQuantity();
     	
     	
     }

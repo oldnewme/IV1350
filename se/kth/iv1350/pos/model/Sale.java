@@ -1,6 +1,7 @@
 package se.kth.iv1350.pos.model;
 import java.util.*;
 
+import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.integration.Item;
 
 public class Sale {
@@ -38,16 +39,18 @@ public class Sale {
 	
 	/**
 	 * Adds an {@link Item} to the current sale
-	 * @param item the {@link Item} that last registered in {@link CashRegister}
+	 * @param itemDTO the {@link Item} that last registered in {@link CashRegister}
 	 */
-    public void updateSale(Item item)
+    public void updateSale(ItemDTO itemDTO)
     {
-    	 if(duplicateItem(item)) {
-             incrementQuantity(item);
-    	 System.out.println(item.getQuantity());}
-         else
-             itemsInSale.add(item);
-        updateTotalPrice(item);
+    	 if(duplicateItem(itemDTO)) {
+             incrementQuantity(itemDTO);
+    	 System.out.println(itemDTO.getQuantity());}
+         else {
+        	 Item currentItem = new Item(itemDTO);
+             itemsInSale.add(currentItem);
+         }
+        updateTotalPrice(itemDTO);
     }
     
     public void calculateVAT()
@@ -76,22 +79,22 @@ public class Sale {
 		return change;
 	}
     
-    private void incrementQuantity(Item item1) {
-    	for(Item item2 : itemsInSale) {
-    		if(sameIdentifier(item1.getItemIdentifier(), item2.getItemIdentifier())) {
-    			item2.setQuantity(item2.getQuantity() + 1);
+    private void incrementQuantity(ItemDTO itemDTO) {
+    	for(Item item : itemsInSale) {
+    		if(sameIdentifier(itemDTO.getItemIdentifier(), item.getItemIdentifier())) {
+    			item.setQuantity(item.getQuantity() + 1);
     		}
     	}
     }
 	
-    private void updateTotalPrice(Item item) {
-        runningTotal += item.getPrice();
+    private void updateTotalPrice(ItemDTO itemDTO) {
+        runningTotal += itemDTO.getPrice();
     }
     
-    private boolean duplicateItem(Item item1) {
-        for (Item item2 : itemsInSale)
+    private boolean duplicateItem(ItemDTO itemDTO) {
+        for (Item item : itemsInSale)
         {
-            if(sameIdentifier(item1.getItemIdentifier(), item2.getItemIdentifier()))
+            if(sameIdentifier(itemDTO.getItemIdentifier(), item.getItemIdentifier()))
             {
                 return true;
             }

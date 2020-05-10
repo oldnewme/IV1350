@@ -1,4 +1,5 @@
 package se.kth.iv1350.pos.controller;
+import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.*;
 import se.kth.iv1350.pos.model.*;
@@ -30,7 +31,7 @@ public class Controller {
 	 * @param itemIdentifier
 	 * @return the {@link Item} that corresponds with the itemIdentifier
 	 */
-	public Item registerItem(long itemIdentifier) {
+	public ItemDTO registerItem(long itemIdentifier) {
 		
 		return cashRegister.registerItem(itemIdentifier);
 	}
@@ -55,7 +56,7 @@ public class Controller {
 		return cashRegister.printReceipt(cashRegister.getSaleDTO());
 	}
 
-	public void updateSale(Item lastItem) {
+	public void updateSale(ItemDTO lastItem) {
 		cashRegister.updateSale(lastItem);
 	}
 

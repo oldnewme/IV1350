@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.model;
 
 import java.util.Scanner;
 
+import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.AccountingSystem;
 import se.kth.iv1350.pos.integration.InventorySystem;
@@ -43,11 +44,11 @@ public class CashRegister {
 	 * @param itemIdentifier
 	 * @return an {@link Item} from the {@link InventorySystem}
 	 */
-	public Item registerItem(long itemIdentifier) {
+	public ItemDTO registerItem(long itemIdentifier) {
 		
 		
 //		if(itemRegistry.getItem(itemIdentifier) != null) {
-			Item currentItem = itemRegistry.getItem(itemIdentifier);
+			ItemDTO currentItem = new ItemDTO (itemRegistry.getItem(itemIdentifier));
             increaseCurrentSaleAmount(currentItem.getPrice());
             return currentItem;
 	//	}
@@ -98,7 +99,7 @@ public class CashRegister {
 		leftToPay += amount;
 	}
 
-	public void updateSale(Item lastItem) {
+	public void updateSale(ItemDTO lastItem) {
 		currentSale.updateSale(lastItem);
 		
 	}

@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.startup;
 
 import se.kth.iv1350.pos.model.*;
 import se.kth.iv1350.pos.view.*;
+import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
 import se.kth.iv1350.pos.integration.*;
@@ -30,7 +31,7 @@ public class Main {
 			if(itemIdentifier == 9L)
 				break;
 			
-			Item lastRegisteredItem = contr.registerItem(itemIdentifier);
+			ItemDTO lastRegisteredItem = contr.registerItem(itemIdentifier);
 			
 			contr.updateSale(lastRegisteredItem);
 			saleDTO = contr.getSaleDTO();
