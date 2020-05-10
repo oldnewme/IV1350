@@ -46,14 +46,14 @@ public class CashRegister {
 	public Item registerItem(long itemIdentifier) {
 		
 		
-		if(itemRegistry.getItem(itemIdentifier) != null) {
+//		if(itemRegistry.getItem(itemIdentifier) != null) {
 			Item currentItem = itemRegistry.getItem(itemIdentifier);
             increaseCurrentSaleAmount(currentItem.getPrice());
             return currentItem;
-		}
-		else {
-			return itemRegistry.getItem(0L);
-		}
+	//	}
+//		else {
+//			return itemRegistry.getItem(0L);
+//		}
 		
 	}
 	/**

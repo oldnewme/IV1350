@@ -20,18 +20,20 @@ public class InventorySystem {
 	 * @return itemInCurrentSale
 	 */
 	public Item getItem(long itemIdentifier){
-
+		
+		Item itemInCurrentSale = null;
 		for(Item item : itemRegistry) {
 			if(item.getItemIdentifier() == itemIdentifier && item.getQuantity() > 0) {
 				item.setQuantity(item.getQuantity()-1);
-				Item itemInCurrentSale = new Item(item);
+				itemInCurrentSale = new Item(item);
 				itemInCurrentSale.setQuantity(1);
-				return itemInCurrentSale;
 			}
+			
+			
 		}
+		return itemInCurrentSale;
 		
-		
-		return new Item(itemRegistry.get(0));
+		//return new Item(itemRegistry.get(0));
     }
 	
 	/**

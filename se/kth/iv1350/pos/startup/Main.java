@@ -18,13 +18,14 @@ public class Main {
 		View view = new View(contr);
 		view.startNewSale();
 		SaleDTO saleDTO;
+		long itemIdentifier;
 		
 		
 		while(true) {
 			System.out.println("Press 9 and enter to terminate sale");
 			System.out.println("Enter item identifier: " );
 			
-			long itemIdentifier = scanner.nextLong();
+			itemIdentifier = scanner.nextLong();
 			
 			if(itemIdentifier == 9L)
 				break;
@@ -34,8 +35,8 @@ public class Main {
 			contr.updateSale(lastRegisteredItem);
 			saleDTO = contr.getSaleDTO();
 			System.out.println("\n=======================================================");
-            for (Item item : saleDTO.getItems())
-                System.out.println(item.getName() + " - " + item.getQuantity() + "x - " + item.getPrice() * item.getQuantity() + ":-");
+            for (Item i : saleDTO.getItems())
+                System.out.println(i.getName() + " - " + i.getQuantity() + "x - " + i.getPrice() * i.getQuantity() + ":-");
             System.out.println(saleDTO.getRunningTotal() + " SEK");
             System.out.println("=======================================================\n");
 
