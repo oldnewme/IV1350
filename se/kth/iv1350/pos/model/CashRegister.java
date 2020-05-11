@@ -89,7 +89,7 @@ public class CashRegister {
     /**
      * Prints a {@link Receipt} based on the completed {@link Sale}
      * @param sale
-     * @return the {@link Receipt} thhat has been created summarizing the {@link Sale}
+     * @return the {@link Receipt} that has been created summarizing the {@link Sale}
      */
     public Receipt printReceipt(SaleDTO saleDTO) {
         return printer.printReceipt(getSaleDTO());
@@ -105,7 +105,7 @@ public class CashRegister {
 	}
 
 	public SaleDTO getSaleDTO() {
-		// TODO Auto-generated method stub
+		
 		return new SaleDTO(currentSale);
 	}
 

@@ -51,9 +51,10 @@ public class Controller {
      * @param sale
      * @return a new {@link Receipt} that includes information about the completed sale
      */
-	public Receipt getReceipt(SaleDTO saleDTO) {
+	public void getReceipt(SaleDTO saleDTO) {
 		
-		return cashRegister.printReceipt(cashRegister.getSaleDTO());
+		Receipt receipt = cashRegister.printReceipt(cashRegister.getSaleDTO());
+		printReceipt(receipt);
 	}
 
 	public void updateSale(ItemDTO lastItem) {
@@ -64,7 +65,9 @@ public class Controller {
 		return cashRegister.getSaleDTO();
 	}
 	
-	
+	public void printReceipt(Receipt receipt) {
+		System.out.println(receipt.toString());
+	}
 	
 
 }

@@ -2,7 +2,11 @@ package se.kth.iv1350.pos.view;
 
 import java.util.Scanner;
 
+import se.kth.iv1350.pos.DTO.ItemDTO;
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
+import se.kth.iv1350.pos.integration.Item;
+import se.kth.iv1350.pos.model.Receipt;
 
 public class View {
 	
@@ -17,13 +21,36 @@ public class View {
 		
 		this.contr = contr;
 	}
+
 	
-	public void startNewSale() {
+	public void userInteraction(){
 		contr.startNewSale();
-	}
-	
-	public void registerItem(long itemIdentifier) {
-		contr.registerItem(itemIdentifier);
+		SaleDTO saleDTO = null;
+		long itemIdentifier;
+		
+		while(true) {
+			System.out.println("Press 9 and enter to terminate sale");
+			System.out.println("Enter item identifier: " );
+			
+			itemIdentifier = scanner.nextLong();
+			
+			if(itemIdentifier == 9L)
+				break;
+			
+			ItemDTO lastRegisteredItem = contr.registerItem(itemIdentifier);
+			
+			contr.updateSale(lastRegisteredItem);
+			saleDTO = contr.getSaleDTO();
+			System.out.println("\n=======================================================");
+            for (Item i : saleDTO.getItems())
+                System.out.println(i.getName() + " - " + i.getQuantity() + "x - " + i.getPrice() * i.getQuantity() + ":-");
+            System.out.println(saleDTO.getRunningTotal() + " SEK");
+            System.out.println("=======================================================\n");
+
+		}
+		
+		contr.terminateSale();
+        contr.getReceipt(saleDTO);
 	}
 	
 }
