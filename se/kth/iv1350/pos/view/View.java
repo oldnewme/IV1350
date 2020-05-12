@@ -5,7 +5,9 @@ import java.util.Scanner;
 import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
+import se.kth.iv1350.pos.integration.DatabaseFailureException;
 import se.kth.iv1350.pos.integration.Item;
+import se.kth.iv1350.pos.integration.ItemNotFoundException;
 import se.kth.iv1350.pos.model.Receipt;
 
 public class View {
@@ -37,7 +39,23 @@ public class View {
 			if(itemIdentifier == 9L)
 				break;
 			
-			ItemDTO lastRegisteredItem = contr.registerItem(itemIdentifier);
+			ItemDTO lastRegisteredItem = null;
+			try {
+				lastRegisteredItem = contr.registerItem(itemIdentifier);
+			} catch (ItemNotFoundException e) {
+				System.out.println("=======================================================");
+				System.out.println("Item not in inventory, please enter valid identifier.");
+				System.out.println("=======================================================\n");
+
+			}
+			catch (DatabaseFailureException e) {
+				System.out.println("=======================================================");
+				System.out.println("Item was not added to sale, please try again");
+				System.out.println("=======================================================\n");
+			}
+			
+			if(lastRegisteredItem == null)
+					continue;
 			
 			contr.updateSale(lastRegisteredItem);
 			saleDTO = contr.getSaleDTO();

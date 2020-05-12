@@ -30,10 +30,18 @@ public class Controller {
 	 * Registers {@link Item} in ongoing {@link Sale} by calling the corresponding method in {@link CashRegister}
 	 * @param itemIdentifier
 	 * @return the {@link Item} that corresponds with the itemIdentifier
+	 * @throws ItemNotFoundException 
 	 */
-	public ItemDTO registerItem(long itemIdentifier) {
+	public ItemDTO registerItem(long itemIdentifier) throws ItemNotFoundException, DatabaseFailureException {
 		
-		return cashRegister.registerItem(itemIdentifier);
+		try {
+			return cashRegister.registerItem(itemIdentifier);
+		} catch (ItemNotFoundException e) {
+			throw new ItemNotFoundException("still not found");
+		}
+		catch (DatabaseFailureException e) {
+			throw new DatabaseFailureException("Failed connection to database");
+		}
 	}
 	
 	/**

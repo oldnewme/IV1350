@@ -5,8 +5,10 @@ import java.util.Scanner;
 import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.AccountingSystem;
+import se.kth.iv1350.pos.integration.DatabaseFailureException;
 import se.kth.iv1350.pos.integration.InventorySystem;
 import se.kth.iv1350.pos.integration.Item;
+import se.kth.iv1350.pos.integration.ItemNotFoundException;
 import se.kth.iv1350.pos.integration.Printer;
 
 public class CashRegister {
@@ -44,18 +46,22 @@ public class CashRegister {
 	 * @param itemIdentifier
 	 * @return an {@link Item} from the {@link InventorySystem}
 	 */
-	public ItemDTO registerItem(long itemIdentifier) {
+	public ItemDTO registerItem(long itemIdentifier) throws ItemNotFoundException, DatabaseFailureException {
 		
-		
-//		if(itemRegistry.getItem(itemIdentifier) != null) {
+		try {
 			ItemDTO currentItem = new ItemDTO (itemRegistry.getItem(itemIdentifier));
             increaseCurrentSaleAmount(currentItem.getPrice());
             return currentItem;
-	//	}
-//		else {
-//			return itemRegistry.getItem(0L);
-//		}
+		}
+		catch(ItemNotFoundException e){
+			throw new ItemNotFoundException("No such item in inventory");
+		}
+		catch(DatabaseFailureException e) {
+			throw new DatabaseFailureException("Failed connection to database");
+		}
 		
+		
+
 	}
 	/**
 	 * Ends a completed {@link Sale}
