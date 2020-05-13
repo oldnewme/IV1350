@@ -39,7 +39,7 @@ public class InventorySystem {
 			}
 		}
 				
-		throw new ItemNotFoundException("Item not found in inventory");
+		throw new ItemNotFoundException("Item not in inventory");
     }
 	
 	/**

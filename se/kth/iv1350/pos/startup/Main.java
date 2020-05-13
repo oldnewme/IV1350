@@ -13,7 +13,13 @@ public class Main {
 		
 		Controller contr = new Controller();
 		View view = new View(contr);
-		view.userInteraction();
+		while(true) {
+			view.userInteraction();
+			System.out.println("Press 1 to exit system or press any other integer to start new sale");
+			if(scanner.nextInt() == 1)
+				break;
+		}
+		
 	}
 
 }

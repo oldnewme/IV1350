@@ -21,7 +21,10 @@ public class TotalRevenueView implements SaleObserver {
 	@Override
 	public void completedSale(SaleDTO sale) {
 		addSaleDTO(sale);
-		System.out.println("This is currently the totalrevenue" + totalRevenue);
+		System.out.println("////////////////////////////////////////////////////////");
+		System.out.println("The total revenue is: " + totalRevenue);
+		System.out.println("////////////////////////////////////////////////////////\n");
+		
 	}
 
 

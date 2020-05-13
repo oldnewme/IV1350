@@ -8,6 +8,7 @@ import se.kth.iv1350.pos.controller.*;
 import se.kth.iv1350.pos.integration.DatabaseFailureException;
 import se.kth.iv1350.pos.integration.Item;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
+import se.kth.iv1350.pos.integration.OperationFailedException;
 import se.kth.iv1350.pos.model.Receipt;
 
 public class View {
@@ -50,7 +51,7 @@ public class View {
 				System.out.println("=======================================================\n");
 
 			}
-			catch (DatabaseFailureException e) {
+			catch (OperationFailedException e) {
 				System.out.println("=======================================================");
 				System.out.println("Item was not added to sale, please try again");
 				System.out.println("=======================================================\n");

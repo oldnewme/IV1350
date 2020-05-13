@@ -50,20 +50,10 @@ public class CashRegister {
 	 */
 	public ItemDTO registerItem(long itemIdentifier) throws ItemNotFoundException, DatabaseFailureException {
 		
-		try {
 			ItemDTO currentItem = new ItemDTO (itemRegistry.getItem(itemIdentifier));
             increaseCurrentSaleAmount(currentItem.getPrice());
             return currentItem;
-		}
-		catch(ItemNotFoundException e){
-			throw new ItemNotFoundException("No such item in inventory");
-		}
-		catch(DatabaseFailureException e) {
-			throw new DatabaseFailureException("Failed connection to database");
-		}
-		
-		
-
+	
 	}
 	/**
 	 * Ends a completed {@link Sale}

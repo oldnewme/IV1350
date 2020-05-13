@@ -33,15 +33,13 @@ public class Controller {
 	 * @return the {@link Item} that corresponds with the itemIdentifier
 	 * @throws ItemNotFoundException 
 	 */
-	public ItemDTO registerItem(long itemIdentifier) throws ItemNotFoundException, DatabaseFailureException {
+	public ItemDTO registerItem(long itemIdentifier) throws ItemNotFoundException, OperationFailedException {
 		
 		try {
 			return cashRegister.registerItem(itemIdentifier);
-		} catch (ItemNotFoundException e) {
-			throw new ItemNotFoundException("still not found");
 		}
 		catch (DatabaseFailureException e) {
-			throw new DatabaseFailureException("Failed connection to database");
+			throw new OperationFailedException("Failed connection to database");
 		}
 	}
 	
