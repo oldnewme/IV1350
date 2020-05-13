@@ -3,6 +3,7 @@ import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.*;
 import se.kth.iv1350.pos.model.*;
+import se.kth.iv1350.pos.view.TotalRevenueView;
 
 
 public class Controller {
@@ -75,6 +76,11 @@ public class Controller {
 	
 	public void printReceipt(Receipt receipt) {
 		System.out.println(receipt.toString());
+	}
+
+	public void addSaleObserver(TotalRevenueView totalRevenueView) {
+		cashRegister.addSaleObserver(totalRevenueView);
+		
 	}
 	
 

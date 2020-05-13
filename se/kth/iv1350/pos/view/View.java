@@ -22,6 +22,7 @@ public class View {
 	public View(Controller contr) {
 		
 		this.contr = contr;
+		contr.addSaleObserver(new TotalRevenueView());
 	}
 
 	
@@ -29,6 +30,7 @@ public class View {
 		contr.startNewSale();
 		SaleDTO saleDTO = null;
 		long itemIdentifier;
+		
 		
 		while(true) {
 			System.out.println("Press 9 and enter to terminate sale");
