@@ -1,7 +1,7 @@
 package se.kth.iv1350.pos.DTO;
 
 /**
- * Stores information about the store in which the {@link Sale}  is ongoing
+ * Stores information about the store in which the sale  is ongoing
  * @author cantonio
  *
  */

@@ -19,7 +19,7 @@ public class ItemDTO {
     
     /**
      * Instantiates an {@link ItemDTO} based on an {@link Item}
-     * @param item
+     * @param item The {@link Item} that the {@link ItemDTO} will be based on
      */
     public ItemDTO(Item item) {
 		this.itemIdentifier = item.getItemIdentifier();

@@ -4,8 +4,8 @@ import se.kth.iv1350.pos.integration.*;
 import se.kth.iv1350.pos.model.*;
 
 /**
- * Controls the program and separates the {@link View} from the {@link Model}. 
- * All method calls to the {@link Model} from the {@link View} passes the {@link Controller}
+ * Controls the program and separates the view from the model
+ * All method calls to the model from the view passes the {@link Controller}
  */
 public class Controller {
 	

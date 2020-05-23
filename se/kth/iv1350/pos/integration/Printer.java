@@ -5,7 +5,7 @@ import se.kth.iv1350.pos.DTO.StoreDTO;
 import se.kth.iv1350.pos.model.*;
 
 /**
- * Represents a printer that prints {@link Receipts}
+ * Represents a printer that prints {@link Receipt}
  * @author cantonio
  *
  */

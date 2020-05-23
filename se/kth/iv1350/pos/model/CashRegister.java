@@ -32,7 +32,7 @@ public class CashRegister {
 	
 	/**
 	 * Registers each item that is scanned in the view to the current sale
-	 * @param itemIdentifier identifies the scanned {@link Item}
+	 * @param itemIdentifier identifies the scanned Item
 	 * @return currentSaleDTO information about the ongoing sale
 	 */
 	public SaleDTO registerItem(long itemIdentifier) {

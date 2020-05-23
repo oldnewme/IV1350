@@ -18,7 +18,7 @@ public class Item {
     
     /**
      * Creates an {@link Item} from an existing item
-     * @param item
+     * @param item An item in the store
      */
     public Item(Item item) {
     	this.itemIdentifier = item.itemIdentifier;
@@ -31,8 +31,8 @@ public class Item {
     }
     
     /**
-     * Creates an {@link Item} from an existing item
-     * @param itemDTO
+     * Creates an {@link Item} from an existing {@link ItemDTO}
+     * @param itemDTO The {@link ItemDTO} that an {@link Item} will be created from
      */
     public Item(ItemDTO itemDTO) {
     	this.itemIdentifier = itemDTO.getItemIdentifier();
@@ -117,7 +117,7 @@ public class Item {
 	}
 	
 	/**
-     * Sets VAT tax rate {@Item}
+     * Sets VAT tax rate {@link Item}
      * @param VAT tax rate of given {@link Item}
      */
 	public void setVAT(double VAT) {
