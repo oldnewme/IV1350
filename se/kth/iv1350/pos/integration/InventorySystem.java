@@ -10,7 +10,7 @@ public class InventorySystem {
 	private ArrayList<Item> itemRegistry;
 	
 	/**
-	 * Creates a new instance representing the accounting system
+	 * Creates a new instance representing the inventory system
 	 */
 	public InventorySystem() {
 		itemRegistry = new ArrayList<Item>();
@@ -18,9 +18,9 @@ public class InventorySystem {
 	}
 	
 	/**
-	 * Returns an {@link Item} with specified identifier.
-	 * @param itemIdentifier represent the products identifier
-	 * @return itemInCurrentSale
+	 * Returns information about an {@link Item} with specified identifier.
+	 * @param itemIdentifier Identifier that uniquely identifies an {@link Item}
+	 * @return an {@link ItemDTO} with information about the {@link Item} requested
 	 */
 	public ItemDTO getItem(long itemIdentifier){
 		ItemDTO itemDTO = null;
@@ -33,8 +33,8 @@ public class InventorySystem {
 	
 	/**
 	 * Checks if item is in {@link InventorySystem}
-	 * @param itemIdentifier
-	 * @return 
+	 * @param itemIdentifier Identifier that uniquely identifies an {@link Item}
+	 * @return a boolean that says if item is inventory or not
 	 */
 	public boolean itemInInventory(long itemIdentifier) {
 		for(Item item : itemRegistry) {
@@ -44,6 +44,13 @@ public class InventorySystem {
 		return false;
 	}
 	
+	/**
+	 * Could be implemented to update inventory based on a {@link SaleDTO}
+	 * @param saleDTO Contains information about current sale to update inventory
+	 */
+	public void updateIventory(SaleDTO saleDTO) {
+		// TODO Auto-generated method stub
+	}
 	
 	private boolean sameIdentifier(long id1, long id2) {
         return (id1 == id2);
@@ -59,7 +66,5 @@ public class InventorySystem {
         itemRegistry.add(new Item(1005L, "Candy cane", 8, 0.12, 1));
     }
 
-	public void updateIventory(SaleDTO saleDTO) {
-		// TODO Auto-generated method stub
-	}
+	
 }

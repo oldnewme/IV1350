@@ -14,32 +14,12 @@ public class AccountingSystem {
         sales = new ArrayList<Sale>();
     }
     
+    /**
+     * Logs a sale to the {@link AccountingSystem}.
+     * @param sale The {@link Sale} that was just made at the {@link CashRegister}
+     */
 	public void logSale(SaleDTO saleDTO) {
 		sales.add(new Sale(saleDTO));
 		
 	}
-    
-//    /**
-//     * Logs a sale to the {@link AccountingSystem}.
-//     * 
-//     * @param sale The sale that was just made at the {@link CashRegister}
-//     */
-//    public void logSale(Sale sale) {
-//    	sales.add(sale);
-//    }
-//    
-//    /**
-//     * Returns a list that is a copy of all sales recorded in the {@link AccountingSystem}.
-//     * @return listOfSales
-//     */
-//    public ArrayList<Sale> getListOfSales() {
-//    	ArrayList<Sale> listOfSales = new ArrayList<Sale>();
-//    	for(Sale sale : sales) {
-//    		listOfSales.add(sale);
-//    	}
-//    	
-//    	return listOfSales;
-//    }
-
-
 }

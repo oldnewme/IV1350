@@ -1,5 +1,4 @@
 package se.kth.iv1350.pos.controller;
-import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.*;
 import se.kth.iv1350.pos.model.*;
@@ -34,85 +33,42 @@ public class Controller {
 	
 	/**
 	 * Registers {@link Item} in ongoing {@link Sale} by calling the corresponding method in {@link CashRegister}
-	 * @param itemIdentifier
-	 * @return saleDTO
+	 * @param itemIdentifier identifies the scanned {@link Item}
+	 * @return saleDTO contains information about current {@link Sale}
 	 */
 	public SaleDTO registerItem(long itemIdentifier) {
 	
 		return cashRegister.registerItem(itemIdentifier);
 	}
 	
+	/**
+	 * Calls on the {@link  CashRegister} to end the currentSale
+	 * @return a SaleDTO that contains information about the finished sale
+	 */
 	public SaleDTO endSale() {
 		
 		return cashRegister.endSale();
 	}
-
+	
+	/**
+	 * Calls on {@link  CashRegister} to apply discount to the ongoing sale
+	 * @param customerID  the identification number of the current customer
+	 * @param saleDTO the current ongoing {@link Sale}
+	 * @return a {@link SaleDTO} with discount deducted when customer is eligible
+	 */
 	public SaleDTO getDiscount(int customerID, SaleDTO saleDTO) {
 		
 		return cashRegister.getDiscount(customerID, saleDTO);
 	}
-
+	
+	/**
+	 * Calls on {@link  CashRegister} to add payment
+	 * @param amountPaid paid amount by customer
+	 * @param saleDTO contains information about the current sale
+	 */
 	public void enterPayment(double amountPaid, SaleDTO saleDTO) {
 		accountingSystem.logSale(saleDTO);
 		saleDTO = cashRegister.enterPayment(amountPaid, saleDTO);
-		printer.printReceipt(saleDTO);
-		
+		printer.printReceipt(saleDTO);		
 	}
-	
-	
-	
-//
-//	/**
-//	 * Creates a new {@link Sale} object by calling the {@link CashRegister}
-//	 * @return
-//	 */
-//	public void startNewSale() {
-//		
-//		cashRegister.newSale();
-//	}
-//	
-//	/**
-//	 * Registers {@link Item} in ongoing {@link Sale} by calling the corresponding method in {@link CashRegister}
-//	 * @param itemIdentifier
-//	 * @return the {@link Item} that corresponds with the itemIdentifier
-//	 */
-//	public ItemDTO registerItem(long itemIdentifier) {
-//		
-//		return cashRegister.registerItem(itemIdentifier);
-//	}
-//	
-//	/**
-//	 * Confirms that all {@link Item}'s in ongoing {@Sale} has been registered and ends the {link @Sale}
-//	 * @param sale
-//	 * @return the {@link Sale} that has been completed
-//	 */
-//    public SaleDTO terminateSale()
-//    {
-//        return cashRegister.terminateSale();
-//    }
-//    
-//    /**
-//     * Creates a new {@link Receipt} based on current sale that has been completed
-//     * @param sale
-//     * @return a new {@link Receipt} that includes information about the completed sale
-//     */
-//	public void getReceipt(SaleDTO saleDTO) {
-//		
-//		Receipt receipt = cashRegister.printReceipt(cashRegister.getSaleDTO());
-//		printReceipt(receipt);
-//	}
-//
-//	public void updateSale(ItemDTO lastItem) {
-//		cashRegister.updateSale(lastItem);
-//	}
-//
-//	public SaleDTO getSaleDTO() {
-//		return cashRegister.getSaleDTO();
-//	}
-//	
-//	public void printReceipt(Receipt receipt) {
-//		System.out.println(receipt.toString());
-//	}
-//	
-
 }

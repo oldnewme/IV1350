@@ -2,12 +2,15 @@ package se.kth.iv1350.pos.view;
 
 import java.util.Scanner;
 
-import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
 import se.kth.iv1350.pos.integration.Item;
-import se.kth.iv1350.pos.model.Receipt;
 
+/**
+ * This class represents the view that the user interacts through.
+ * @author cantonio
+ *
+ */
 public class View {
 	
 	Scanner scanner = new Scanner(System.in);
@@ -22,7 +25,10 @@ public class View {
 		this.contr = contr;
 	}
 
-	
+	/**
+	 * Simulates the user interaction by starting a sale and letting the user
+	 * add items to sale and then end.
+	 */
 	public void userInteraction(){
 		contr.startNewSale();
 		long itemIdentifier;
@@ -64,36 +70,5 @@ public class View {
 		System.out.println("Enter amount paid");
 		double amountPaid = scanner.nextDouble();
 		contr.enterPayment(amountPaid, saleDTO);
-		
-		
-	}
-//		contr.startNewSale();
-//		SaleDTO saleDTO = null;
-//		long itemIdentifier;
-//		
-//		while(true) {
-//			System.out.println("Press 9 and enter to terminate sale");
-//			System.out.println("Enter item identifier: " );
-//			
-//			itemIdentifier = scanner.nextLong();
-//			
-//			if(itemIdentifier == 9L)
-//				break;
-//			
-//			ItemDTO lastRegisteredItem = contr.registerItem(itemIdentifier);
-//			
-//			contr.updateSale(lastRegisteredItem);
-//			saleDTO = contr.getSaleDTO();
-//			System.out.println("\n=======================================================");
-//            for (Item i : saleDTO.getItems())
-//                System.out.println(i.getName() + " - " + i.getQuantity() + "x - " + i.getPrice() * i.getQuantity() + ":-");
-//            System.out.println(saleDTO.getRunningTotal() + " SEK");
-//            System.out.println("=======================================================\n");
-//
-//		}
-//		
-//		contr.terminateSale();
-//        contr.getReceipt(saleDTO);
-//	}
-	
+	}	
 }

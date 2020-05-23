@@ -6,7 +6,11 @@ import se.kth.iv1350.pos.DTO.StoreDTO;
 import se.kth.iv1350.pos.integration.*;
 import java.sql.Timestamp;
 
-
+/**
+ * A class that represents the receipt that summarizes a sale that has been made
+ * @author cantonio
+ *
+ */
 public class Receipt {
     private double totalPrice;
     private double VAT;
@@ -15,9 +19,11 @@ public class Receipt {
     private ArrayList<Item> purchases;
     
     
+
     /**
-     * Creates an object of {@link Receipt} from a {@link Sale}
-     * @param sale The completed {@link Sale}
+     * Creates an object of {@link Receipt} from a {@link SaleDTO}
+     * @param saleDTO Data transfer object containing information on the completed {@link Sale}
+     * @param store The store in which the {@link Sale} has been completed
      */
 	public Receipt(SaleDTO saleDTO, StoreDTO store) {
 		this.totalPrice = saleDTO.getRunningTotal();
