@@ -16,8 +16,9 @@ public class AccountingSystem {
     
     /**
      * Logs a sale to the {@link AccountingSystem}.
-     * @param sale The {@link Sale} that was just made at the {@link CashRegister}
+     * @param saleDTO The {@link Sale} that was just completed
      */
+    
 	public void logSale(SaleDTO saleDTO) {
 		sales.add(new Sale(saleDTO));
 		
