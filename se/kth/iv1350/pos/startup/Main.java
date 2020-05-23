@@ -2,6 +2,7 @@ package se.kth.iv1350.pos.startup;
 
 import se.kth.iv1350.pos.view.*;
 import se.kth.iv1350.pos.controller.*;
+import se.kth.iv1350.pos.model.*;
 
 import java.util.*;
 
@@ -11,8 +12,10 @@ public class Main {
 		
 		Scanner scanner = new Scanner(System.in);
 		
-		Controller contr = new Controller();
+		CashRegister cashRegister = new CashRegister();
+		Controller contr = new Controller(cashRegister);
 		View view = new View(contr);
+		
 		view.userInteraction();
 	}
 

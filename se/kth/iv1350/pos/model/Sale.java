@@ -2,8 +2,14 @@ package se.kth.iv1350.pos.model;
 import java.util.*;
 
 import se.kth.iv1350.pos.DTO.ItemDTO;
+import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.Item;
 
+/**
+ * This class represents an actual Sale being made
+ * @author cantonio
+ *
+ */
 public class Sale {
     
     private double runningTotal = 0;
@@ -16,6 +22,13 @@ public class Sale {
      */
 	public Sale() {
 		this.itemsInSale = new ArrayList<Item>();
+	}
+	
+	public Sale(SaleDTO saleDTO) {
+		this.runningTotal = saleDTO.getRunningTotal();
+		this.VAT = saleDTO.getVAT();
+		this.change = saleDTO.getChange();
+		this.itemsInSale = saleDTO.getItems();
 	}
 	/**
 	 * Gets the {@link runningTotal} in the current ongoing {@link Sale}	
@@ -39,13 +52,12 @@ public class Sale {
 	
 	/**
 	 * Adds an {@link Item} to the current sale
-	 * @param itemDTO the {@link Item} that last registered in {@link CashRegister}
+	 * @param itemDTO an {@link ItemDTO} that represents the {@link Item} that last registered in {@link CashRegister}
 	 */
     public void updateSale(ItemDTO itemDTO)
     {
-    	 if(duplicateItem(itemDTO)) {
+    	 if(duplicateItem(itemDTO))
              incrementQuantity(itemDTO);
-    	 System.out.println(itemDTO.getQuantity());}
          else {
         	 Item currentItem = new Item(itemDTO);
              itemsInSale.add(currentItem);
@@ -88,7 +100,7 @@ public class Sale {
     }
 	
     private void updateTotalPrice(ItemDTO itemDTO) {
-        runningTotal += itemDTO.getPrice();
+        runningTotal += (itemDTO.getPrice()+itemDTO.getPrice()*itemDTO.getVAT());
     }
     
     private boolean duplicateItem(ItemDTO itemDTO) {
