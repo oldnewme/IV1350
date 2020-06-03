@@ -47,7 +47,7 @@ public class Receipt {
         s.append(store.getName() + "\n");
         s.append(store.getAddress() + "\n");
         for (Item item : purchases) {
-            s.append("- " + item.getName() + " - " + item.getQuantity() + " x - " + item.getPrice() * item.getQuantity() + ":-\n");
+            s.append("- " + item.getName() + " - " + item.getQuantity() + " x - " + (item.getPrice()+item.getPrice()*item.getVAT()) * item.getQuantity() + ":-\n");
         }
         s.append("Total price: " + String.format("%.2f", totalPrice) + "\n");
         s.append("VAT: " + String.format("%.2f", VAT) + "\n");

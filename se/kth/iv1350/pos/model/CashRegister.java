@@ -63,16 +63,33 @@ public class CashRegister {
 	}
 	
 	/**
-	 * Registers payment from customer 
+	 * Registers payment from customer and possibly updates inventory and updates the amount in the cashregister
 	 * @param amountPaid paid amount by customer
 	 * @param saleDTO contains information about the current sale
 	 * @return a new {@link SaleDTO} containing information about current sale including information about change
 	 */
 	public SaleDTO enterPayment(double amountPaid, SaleDTO saleDTO) {
-		inventory.updateIventory(saleDTO);
-		currentSale.setChange(amountPaid - (currentSale.getRunningTotal()));
-		amountInRegister = amountPaid - currentSale.getChange();
+		updateInventory(saleDTO);
+		double change = calculateChange(amountPaid, currentSale.getRunningTotal());
+		setChangeInCurrentSale(change);
+		updateAmountInRegister(amountPaid, currentSale.getChange());
 		return saleDTO = new SaleDTO(currentSale);
+	}
+	
+	private void updateInventory(SaleDTO saleDTO) {
+		inventory.updateIventory(saleDTO);
+	}
+	
+	private void setChangeInCurrentSale(double change) {
+		currentSale.setChange(change);
+	}
+	
+	private double calculateChange(double amountPaid, double finalTotal) {
+		return (amountPaid - finalTotal);
+	}
+	
+	private void updateAmountInRegister(double amountPaid, double change) {
+		amountInRegister += amountPaid - change;
 	}
 	
 }

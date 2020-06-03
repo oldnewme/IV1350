@@ -67,8 +67,16 @@ public class Controller {
 	 * @param saleDTO contains information about the current sale
 	 */
 	public void enterPayment(double amountPaid, SaleDTO saleDTO) {
-		accountingSystem.logSale(saleDTO);
+		logSale(saleDTO);
 		saleDTO = cashRegister.enterPayment(amountPaid, saleDTO);
-		printer.printReceipt(saleDTO);		
+		printReceipt(saleDTO);
+	}
+	
+	private void logSale(SaleDTO saleDTO) {
+		accountingSystem.logSale(saleDTO);
+	}
+	
+	private void printReceipt(SaleDTO saleDTO) {
+		printer.printReceipt(saleDTO);	
 	}
 }

@@ -23,26 +23,11 @@ public class InventorySystem {
 	 * @return an {@link ItemDTO} with information about the {@link Item} requested
 	 */
 	public ItemDTO getItem(long itemIdentifier){
-		ItemDTO itemDTO = null;
-		for(Item item : itemRegistry) {
-			if(item.getItemIdentifier() == itemIdentifier)
-				itemDTO = new ItemDTO(item);
-		}
+		
+		ItemDTO itemDTO = null;;
+		itemDTO = returnItemInfo(itemIdentifier, itemDTO);
 		return itemDTO;
     }
-	
-	/**
-	 * Checks if item is in {@link InventorySystem}
-	 * @param itemIdentifier Identifier that uniquely identifies an {@link Item}
-	 * @return a boolean that says if item is inventory or not
-	 */
-	public boolean itemInInventory(long itemIdentifier) {
-		for(Item item : itemRegistry) {
-			if(sameIdentifier(itemIdentifier, item.getItemIdentifier()))
-				return true;
-		}
-		return false;
-	}
 	
 	/**
 	 * Could be implemented to update inventory based on a {@link SaleDTO}
@@ -56,6 +41,13 @@ public class InventorySystem {
         return (id1 == id2);
     }
 	
+	private ItemDTO returnItemInfo(long itemIdentifier, ItemDTO itemDTO) {
+		for(Item item : itemRegistry) {
+			if (sameIdentifier(itemIdentifier, item.getItemIdentifier()))
+				itemDTO = new ItemDTO(item);
+		}
+		return itemDTO;
+	}
     private void createInventory() {
         itemRegistry.add(new Item(0L, "identifier doesn't exist", 00.00,  0.00, 0));
         itemRegistry.add(new Item(1000L, "Butter", 25, 0.12, 1));
