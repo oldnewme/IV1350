@@ -36,9 +36,14 @@ public class Controller {
 	 * @param itemIdentifier identifies the scanned {@link Item}
 	 * @return saleDTO contains information about current {@link Sale}
 	 */
-	public SaleDTO registerItem(long itemIdentifier) {
-	
-		return cashRegister.registerItem(itemIdentifier);
+	public SaleDTO registerItem(long itemIdentifier) throws OperationFailedException {
+		try {
+			return cashRegister.registerItem(itemIdentifier);			
+		}
+		catch (DatabaseFailureException e) {
+			throw new OperationFailedException("Failed connection to database");
+		}
+		
 	}
 	
 	/**

@@ -5,6 +5,7 @@ import java.util.Scanner;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
 import se.kth.iv1350.pos.integration.Item;
+import se.kth.iv1350.pos.integration.OperationFailedException;
 
 /**
  * This class represents the view that the user interacts through.
@@ -45,8 +46,18 @@ public class View {
 				break;
 			}
 				
+			try {
+				saleDTO = contr.registerItem(itemIdentifier);
+			}
+			catch (OperationFailedException e) {
+				System.out.println("=======================================================");
+				System.out.println("Item was not added to sale, please try again");
+				System.out.println("=======================================================\n");
+			}
 			
-			saleDTO = contr.registerItem(itemIdentifier);
+			if(saleDTO == null)
+				continue;
+			
 			System.out.println("\n=======================================================");
           for (Item i : saleDTO.getItems())
             System.out.println(i.getName() + " - " + i.getQuantity() + "x - " + (i.getPrice()+i.getVAT()*i.getPrice()) * i.getQuantity() + ":-");

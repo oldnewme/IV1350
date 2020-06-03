@@ -3,7 +3,9 @@ package se.kth.iv1350.pos.model;
 
 import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
+import se.kth.iv1350.pos.integration.DatabaseFailureException;
 import se.kth.iv1350.pos.integration.InventorySystem;
+import se.kth.iv1350.pos.integration.ItemNotFoundException;
 
 /**
  * This class represents the cash register that handles each ongoing sale
@@ -35,7 +37,7 @@ public class CashRegister {
 	 * @param itemIdentifier identifies the scanned Item
 	 * @return currentSaleDTO information about the ongoing sale
 	 */
-	public SaleDTO registerItem(long itemIdentifier) {
+	public SaleDTO registerItem(long itemIdentifier) throws DatabaseFailureException {
 		ItemDTO itemDTO = inventory.getItem(itemIdentifier);
 		currentSale.updateSale(itemDTO);
 		currentSale.calculateVAT();

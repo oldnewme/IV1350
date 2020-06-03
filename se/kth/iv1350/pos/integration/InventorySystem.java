@@ -22,9 +22,12 @@ public class InventorySystem {
 	 * @param itemIdentifier Identifier that uniquely identifies an {@link Item}
 	 * @return an {@link ItemDTO} with information about the {@link Item} requested
 	 */
-	public ItemDTO getItem(long itemIdentifier){
+	public ItemDTO getItem(long itemIdentifier) throws DatabaseFailureException {
+		if(itemIdentifier == 4321) {
+			throw new DatabaseFailureException("Failed connection to database");
+		}
 		
-		ItemDTO itemDTO = null;;
+		ItemDTO itemDTO = null;
 		itemDTO = returnItemInfo(itemIdentifier, itemDTO);
 		return itemDTO;
     }
