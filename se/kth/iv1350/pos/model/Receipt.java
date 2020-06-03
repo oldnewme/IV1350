@@ -25,12 +25,12 @@ public class Receipt {
      * @param saleDTO Data transfer object containing information on the completed {@link Sale}
      * @param store The store in which the {@link Sale} has been completed
      */
-	public Receipt(SaleDTO saleDTO, StoreDTO store) {
+	public Receipt(SaleDTO saleDTO) {
 		this.totalPrice = saleDTO.getRunningTotal();
 		this.VAT = saleDTO.getVAT();
 		this.change = saleDTO.getChange();
 		this.purchases = saleDTO.getItems();
-		this.store = store;
+		this.store = new StoreDTO("ICA Maxi", "Storvägen 13, 154 43, Markaryd");
 		
 	}
 	

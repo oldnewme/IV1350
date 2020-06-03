@@ -5,6 +5,7 @@ import java.util.Scanner;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.controller.*;
 import se.kth.iv1350.pos.integration.Item;
+import se.kth.iv1350.pos.integration.ItemNotFoundException;
 import se.kth.iv1350.pos.integration.OperationFailedException;
 
 /**
@@ -24,6 +25,7 @@ public class View {
 	public View(Controller contr) {
 		
 		this.contr = contr;
+		contr.addSaleObserver(new TotalRevenueView());
 	}
 
 	/**
@@ -48,10 +50,19 @@ public class View {
 				
 			try {
 				saleDTO = contr.registerItem(itemIdentifier);
+				
 			}
 			catch (OperationFailedException e) {
+				
+				System.out.println("User log: ");
 				System.out.println("=======================================================");
 				System.out.println("Item was not added to sale, please try again");
+				System.out.println("=======================================================\n");
+			}
+			catch (ItemNotFoundException e) {
+				System.out.println("User log: ");
+				System.out.println("=======================================================");
+				System.out.println("Item not in inventory, please enter valid identifier.");
 				System.out.println("=======================================================\n");
 			}
 			
@@ -86,5 +97,7 @@ public class View {
 		System.out.println("Enter amount paid");
 		double amountPaid = scanner.nextDouble();
 		contr.enterPayment(amountPaid, saleDTO);
-	}	
+	
+		}
+	
 }

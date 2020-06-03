@@ -2,6 +2,9 @@ package se.kth.iv1350.pos.controller;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.*;
 import se.kth.iv1350.pos.model.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import se.kth.iv1350.pos.view.TotalRevenueView;
 
 /**
  * Controls the program and separates the view from the model
@@ -12,7 +15,7 @@ public class Controller {
 	private CashRegister cashRegister;
 	private AccountingSystem accountingSystem;
 	private Printer printer;
-	
+	final static Logger logger = Logger.getAnonymousLogger();
 	
 	/**
 	 * Creates a new {@link Controller} that a view can communicate with objects in the model through
@@ -21,7 +24,7 @@ public class Controller {
 	public Controller(CashRegister cashRegister) {
 		this.cashRegister = cashRegister;
 		this.accountingSystem = new AccountingSystem();
-		this.printer = new Printer();
+		this.printer = Printer.getPrinter();
 	}
 	
 	/**
@@ -35,13 +38,27 @@ public class Controller {
 	 * Registers {@link Item} in ongoing {@link Sale} by calling the corresponding method in {@link CashRegister}
 	 * @param itemIdentifier identifies the scanned {@link Item}
 	 * @return saleDTO contains information about current {@link Sale}
+	 * @throws OperationFailedException a general exception that can be used for different errors the user does not need to know in detail
+	 * @throws ItemNotFoundException is thrown when the itemIdentifier doesn't correspond to any {@link Item} in the inventory
 	 */
-	public SaleDTO registerItem(long itemIdentifier) throws OperationFailedException {
+	
+	public SaleDTO registerItem(long itemIdentifier) throws OperationFailedException, ItemNotFoundException {
 		try {
 			return cashRegister.registerItem(itemIdentifier);			
 		}
 		catch (DatabaseFailureException e) {
+
+			System.out.println("Developer log: ");
+			logger.log(Level.SEVERE, "an exception was thrown", e);
 			throw new OperationFailedException("Failed connection to database");
+			
+		}
+		catch (ItemNotFoundException e) {
+			
+			
+			System.out.println("Developer log: ");
+			logger.log(Level.SEVERE, "an exception was thrown", e);
+			throw new ItemNotFoundException("Item not in inventory");
 		}
 		
 	}
@@ -65,6 +82,16 @@ public class Controller {
 		
 		return cashRegister.getDiscount(customerID, saleDTO);
 	}
+	
+	/**
+	 * Adds an observer to
+	 * @param totalRevenueView is the view that will continually show the updated revenue
+	 */
+	public void addSaleObserver(TotalRevenueView totalRevenueView) {
+		cashRegister.addSaleObserver(totalRevenueView);
+		
+	}
+	
 	
 	/**
 	 * Calls on {@link  CashRegister} to add payment

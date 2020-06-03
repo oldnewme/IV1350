@@ -21,14 +21,19 @@ public class InventorySystem {
 	 * Returns information about an {@link Item} with specified identifier.
 	 * @param itemIdentifier Identifier that uniquely identifies an {@link Item}
 	 * @return an {@link ItemDTO} with information about the {@link Item} requested
+	 * @throws DatabaseFailureException is thrown when the {@link InventorySystem} class cannot connect to database
+	 * @throws ItemNotFoundException is thrown when the itemIdentifier doesn't correspond to any {@link Item} in the inventory
 	 */
-	public ItemDTO getItem(long itemIdentifier) throws DatabaseFailureException {
+	public ItemDTO getItem(long itemIdentifier) throws DatabaseFailureException, ItemNotFoundException {
 		if(itemIdentifier == 4321) {
 			throw new DatabaseFailureException("Failed connection to database");
 		}
 		
 		ItemDTO itemDTO = null;
 		itemDTO = returnItemInfo(itemIdentifier, itemDTO);
+		if(itemDTO == null) {
+			throw new ItemNotFoundException("Item not in inventory");
+		}
 		return itemDTO;
     }
 	

@@ -5,25 +5,25 @@ import se.kth.iv1350.pos.DTO.StoreDTO;
 import se.kth.iv1350.pos.model.*;
 
 /**
- * Represents a printer that prints {@link Receipt}
+ * Represents a printer that prints {@link Receipt} 
+ * The class is a singleton 
  * @author cantonio
  *
  */
 public class Printer {
-	private StoreDTO store;
+	private static final Printer PRINTER = new Printer();
 	
-	/**
-	 * Creates a new instance of {@link Printer} which represents a printer in a {@link CashRegister}
-	 */
-	public Printer() {
-		this.store = new StoreDTO("ICA Maxi", "Storvägen 13, 154 43, Markaryd");
+	private Printer() {
+		
 	}
 	
 	/**
-	 * Prints a receipt based on {@link Sale} that has been made at {@link CashRegister}
-	 * @param sale
-	 * @return receipt
+	 * 
+	 * @return PRINTER a printer that is the only instance that is produced
 	 */
+	public static Printer getPrinter() {
+		return PRINTER;
+	}
 	
 	/**
 	 * Prints a receipt with information from a {@link SaleDTO} based 
@@ -31,7 +31,7 @@ public class Printer {
 	 * @param saleDTO contains information about a sale that has just been completed
 	 */
 	public void printReceipt(SaleDTO saleDTO) {
-		System.out.println(new Receipt(saleDTO, store).toString());
+		System.out.println(new Receipt(saleDTO).toString());
 		
 	}
 }

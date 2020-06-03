@@ -1,10 +1,13 @@
 package se.kth.iv1350.pos.model;
 
 
+import java.util.ArrayList;
+
 import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.DatabaseFailureException;
 import se.kth.iv1350.pos.integration.InventorySystem;
+import se.kth.iv1350.pos.integration.Item;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
 
 /**
@@ -13,6 +16,7 @@ import se.kth.iv1350.pos.integration.ItemNotFoundException;
  *
  */
 public class CashRegister {
+	private ArrayList<SaleObserver> saleObservers = new ArrayList<>();
 	private Sale currentSale;
 	private InventorySystem inventory;
 	private double amountInRegister;
@@ -36,8 +40,11 @@ public class CashRegister {
 	 * Registers each item that is scanned in the view to the current sale
 	 * @param itemIdentifier identifies the scanned Item
 	 * @return currentSaleDTO information about the ongoing sale
+	 * @throws DatabaseFailureException is thrown when the {@link InventorySystem} class cannot connect to database
+	 * @throws ItemNotFoundException is thrown when the itemIdentifier doesn't correspond to any {@link Item} in the inventory
 	 */
-	public SaleDTO registerItem(long itemIdentifier) throws DatabaseFailureException {
+	
+	public SaleDTO registerItem(long itemIdentifier) throws DatabaseFailureException, ItemNotFoundException {
 		ItemDTO itemDTO = inventory.getItem(itemIdentifier);
 		currentSale.updateSale(itemDTO);
 		currentSale.calculateVAT();
@@ -75,7 +82,22 @@ public class CashRegister {
 		double change = calculateChange(amountPaid, currentSale.getRunningTotal());
 		setChangeInCurrentSale(change);
 		updateAmountInRegister(amountPaid, currentSale.getChange());
+		notifyObservers();
 		return saleDTO = new SaleDTO(currentSale);
+	}
+	
+	/**
+	 * Used to add observers of the CashRegister class
+	 * @param obs is the observer to be added
+	 */
+	public void addSaleObserver(SaleObserver obs) {
+		saleObservers.add(obs);
+	}
+	
+	private void notifyObservers() {
+		for(SaleObserver obs : saleObservers) {
+			obs.completedSale(new SaleDTO(currentSale));
+		}
 	}
 	
 	private void updateInventory(SaleDTO saleDTO) {
