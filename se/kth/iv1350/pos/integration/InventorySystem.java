@@ -4,7 +4,11 @@ import java.util.ArrayList;
 
 import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
-
+/**
+ * Represents the inventorysystem. 
+ * @author cantonio
+ *
+ */
 public class InventorySystem {
 	
 	private ArrayList<Item> itemRegistry;

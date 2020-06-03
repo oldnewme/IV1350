@@ -77,8 +77,6 @@ public class View {
           	System.out.println("=======================================================\n");
 		}
 		
-		
-		/*	If discounts are implemented
 			
 			System.out.println("Did customer say they were eligible for a discount?");
 			System.out.println("y/n");
@@ -88,11 +86,11 @@ public class View {
 			if(eligebleForDiscount.equals("y")) {
 				System.out.println("Enter customer ID:");
 				int customerID = scanner.nextInt();
-				saleDTO = contr.getDiscount(customerID, saleDTO);
+				saleDTO = contr.getDiscount(saleDTO, customerID);
 				System.out.println("Total inc. VAT after discount is: " + String.format("%.2f", saleDTO.getRunningTotal()) + " SEK");
 			}
 		
-		*/
+		
 		
 		System.out.println("Enter amount paid");
 		double amountPaid = scanner.nextDouble();

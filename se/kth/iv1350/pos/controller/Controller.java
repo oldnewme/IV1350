@@ -78,9 +78,9 @@ public class Controller {
 	 * @param saleDTO the current ongoing {@link Sale}
 	 * @return a {@link SaleDTO} with discount deducted when customer is eligible
 	 */
-	public SaleDTO getDiscount(int customerID, SaleDTO saleDTO) {
+	public SaleDTO getDiscount(SaleDTO saleDTO, int customerID) {
 		
-		return cashRegister.getDiscount(customerID, saleDTO);
+		return cashRegister.getDiscount(saleDTO, customerID);
 	}
 	
 	/**

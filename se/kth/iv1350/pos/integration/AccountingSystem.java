@@ -3,7 +3,11 @@ package se.kth.iv1350.pos.integration;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.model.Sale;
 import java.util.*;
-
+/**
+ * Represents the accounting system that logs all sales
+ * @author cantonio
+ *
+ */
 public class AccountingSystem {
 	private static ArrayList<Sale> sales;
 	

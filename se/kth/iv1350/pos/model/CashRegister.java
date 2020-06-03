@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import se.kth.iv1350.pos.DTO.ItemDTO;
 import se.kth.iv1350.pos.DTO.SaleDTO;
 import se.kth.iv1350.pos.integration.DatabaseFailureException;
+import se.kth.iv1350.pos.integration.DiscountHandler;
 import se.kth.iv1350.pos.integration.InventorySystem;
 import se.kth.iv1350.pos.integration.Item;
 import se.kth.iv1350.pos.integration.ItemNotFoundException;
@@ -20,6 +21,7 @@ public class CashRegister {
 	private Sale currentSale;
 	private InventorySystem inventory;
 	private double amountInRegister;
+	private DiscountHandler discountHandler = new DiscountHandler();
 	
     
     /**
@@ -67,8 +69,17 @@ public class CashRegister {
 	 * @param saleDTO information about the current sale
 	 * @return a {@link SaleDTO} with discount deducted when customer is eligible
 	 */
-	public SaleDTO getDiscount(int customerID, SaleDTO saleDTO) {
-		return DiscountRules.getDiscount(customerID, saleDTO);
+	public SaleDTO getDiscount(SaleDTO saleDTO, int customerID) {
+		ArrayList<Discount> applicableDiscounts = discountHandler.checkDiscounts(saleDTO, customerID);
+		if(!applicableDiscounts.isEmpty()) {
+			Sale tempSale = new Sale(saleDTO);
+			for(Discount d : applicableDiscounts) {
+				tempSale.setRunningTotal(d.calculateDiscount(saleDTO));
+				saleDTO = new SaleDTO(tempSale);
+			}
+			currentSale.setRunningTotal(saleDTO.getRunningTotal());
+		}
+		return new SaleDTO(currentSale);
 	}
 	
 	/**

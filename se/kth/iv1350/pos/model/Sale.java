@@ -77,15 +77,35 @@ public class Sale {
         this.VAT = VAT;
     }
     
+    /**
+     * sets change in sale object
+     * @param amount the amount the change is set to
+     */
     public void setChange(double amount) {
     	this.change = amount;
     }
-
+    
+    /**
+     * sets the runningTotal of the sale
+     * @param newRunningTotal the total that running total will be set to
+     */
+    public void setRunningTotal(double newRunningTotal) {
+    	this.runningTotal = newRunningTotal;
+    }
+    
+    /**
+     * gets the VAT rate
+     * @return VAT the tax of the sale
+     */
 	public double getVAT() {
 
 		return VAT;
 	}
-
+	
+	/**
+	 * retrieves the change of the sale
+	 * @return change the change that the sale results in
+	 */
 	public double getChange() {
 
 		return change;
